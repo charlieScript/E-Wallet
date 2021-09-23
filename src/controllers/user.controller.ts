@@ -1,4 +1,4 @@
-import joi, { string,number } from 'joi';
+import joi from 'joi';
 import { signPayload } from '../helpers/jwt';
 import { hash, compare } from '../helpers/bcrypt'
 import { createUser, findUser } from '../services/user.service';
@@ -64,6 +64,12 @@ export const signupController = async (
   };
 };
 
+/**
+ * 
+ * @param email 
+ * @param password 
+ * @returns 
+ */
 export const loginController = async (email: string, password: string): Promise<IHelperResponse> => {
   const validationSchema = joi.object({
     email: joi.string().required().email(),
@@ -98,4 +104,7 @@ export const loginController = async (email: string, password: string): Promise<
     data: { token: signPayload({ id: user.email }) },
   }
 }
+
+
+
 
