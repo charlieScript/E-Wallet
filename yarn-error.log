@@ -1,5 +1,5 @@
 Arguments: 
-  /snap/node/5225/bin/node /snap/node/5225/bin/yarn.js add prisma -D
+  /snap/node/5319/bin/node /snap/node/5319/bin/yarn.js add supertest
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -8,13 +8,13 @@ Yarn version:
   1.22.5
 
 Node version: 
-  12.22.5
+  12.22.6
 
 Platform: 
   linux x64
 
 Trace: 
-  Error: getaddrinfo ENOTFOUND registry.yarnpkg.com
+  Error: getaddrinfo EAI_AGAIN registry.yarnpkg.com
       at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:66:26)
 
 npm manifest: 
@@ -25,15 +25,20 @@ npm manifest:
     "main": "index.js",
     "scripts": {
       "dev": "nodemon --config nodemon.json src/server.ts",
-      "build": "tsc -w"
+      "build": "tsc -w",
+      "test": "NODE_ENV=test jest --forceExit --coverage --verbose --colors",
+      "watch-test": "npm run test -- --watchAll"
     },
     "keywords": [],
     "author": "charlieScript <gozione@gmail.com>",
     "license": "ISC",
     "dependencies": {
+      "@prisma/client": "^3.0.2",
       "@types/winston": "^2.4.4",
+      "axios": "^0.21.4",
       "bcrypt": "^5.0.1",
       "cors": "^2.8.5",
+      "dotenv": "^10.0.0",
       "express": "^4.17.1",
       "joi": "^17.4.1",
       "jsonwebtoken": "^8.5.1",
@@ -46,6 +51,7 @@ npm manifest:
       "@types/express": "^4.17.13",
       "@types/jsonwebtoken": "^8.5.4",
       "@types/node": "^16.3.0",
+      "prisma": "^3.0.2",
       "ts-node": "^10.0.0",
       "typescript": "^4.3.5"
     }
@@ -94,6 +100,23 @@ Lockfile:
       rimraf "^3.0.2"
       semver "^7.3.4"
       tar "^6.1.0"
+  
+  "@prisma/client@^3.0.2":
+    version "3.0.2"
+    resolved "https://registry.yarnpkg.com/@prisma/client/-/client-3.0.2.tgz#f04d9b252f3d0c6918df43ad228eac27d03f6db1"
+    integrity sha512-6SrDYY2Yr5AmYpVB3XAXFqfzxKMdDTemXR7FmfXthnxWhQHoBwRLNZ3B3GyI/MmWa5tr+kaaGDJjp1LU0vuYvQ==
+    dependencies:
+      "@prisma/engines-version" "2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db"
+  
+  "@prisma/engines-version@2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db":
+    version "2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db"
+    resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db.tgz#c45323e420f47dd950b22c873bdcf38f75e65779"
+    integrity sha512-iArSApZZImVmT9oC/rGOjzvpG2AOqlIeqYcVnop9poA3FxD4zfVPbNPH9DTgOWhc06OkBHujJZeAcsNddVabIQ==
+  
+  "@prisma/engines@2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db":
+    version "2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db"
+    resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db.tgz#b6cf70bc05dd2a62168a16f3ea58a1b011074621"
+    integrity sha512-Q9CwN6e5E5Abso7J3A1fHbcF4NXGRINyMnf7WQ07fXaebxTTARY5BNUzy2Mo5uH82eRVO5v7ImNuR044KTjLJg==
   
   "@sideway/address@^4.1.0":
     version "4.1.2"
@@ -154,11 +177,6 @@ Lockfile:
     dependencies:
       "@types/node" "*"
   
-  "@types/config@^0.0.39":
-    version "0.0.39"
-    resolved "https://registry.yarnpkg.com/@types/config/-/config-0.0.39.tgz#aad18ceb9439329adc3d4c6b91a908a72c715612"
-    integrity sha512-EBHj9lSIyw62vwqCwkeJXjiV6C2m2o+RJZlRWLkHduGYiNBoMXcY6AhSLqjQQ+uPdrPYrOMYvVa41zjo00LbFQ==
-  
   "@types/connect@*":
     version "3.4.35"
     resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.35.tgz#5fcf6ae445e4021d1fc2219a4873cc73a3bb2ad1"
@@ -197,11 +215,6 @@ Lockfile:
     dependencies:
       "@types/node" "*"
   
-  "@types/lodash@^4.14.171":
-    version "4.14.171"
-    resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.171.tgz#f01b3a5fe3499e34b622c362a46a609fdb23573b"
-    integrity sha512-7eQ2xYLLI/LsicL2nejW9Wyko3lcpN6O/z0ZLHrEQsg280zIdCv1t/0m6UtBjUHokCGBQ3gYTbHzDkZ1xOBwwg==
-  
   "@types/mime@^1":
     version "1.3.2"
     resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
@@ -214,13 +227,6 @@ Lockfile:
     dependencies:
       "@types/bson" "*"
       "@types/node" "*"
-  
-  "@types/mongoose@^5.11.97":
-    version "5.11.97"
-    resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.11.97.tgz#80b0357f3de6807eb597262f52e49c3e13ee14d8"
-    integrity sha512-cqwOVYT3qXyLiGw7ueU2kX9noE8DPGRY6z8eUxudhXY8NZ7DMKYAxyZkLSevGfhCX3dO/AoX5/SO9lAzfjon0Q==
-    dependencies:
-      mongoose "*"
   
   "@types/node@*", "@types/node@^16.3.0":
     version "16.3.0"
@@ -314,6 +320,13 @@ Lockfile:
     version "3.2.0"
     resolved "https://registry.yarnpkg.com/async/-/async-3.2.0.tgz#b3a2685c5ebb641d3de02d161002c60fc9f85720"
     integrity sha512-TR2mEZFVOj2pLStYxLht7TyfuRzaydfpxr3k9RpHIzMgw7A64dzsdqCxH1WJyQdoe8T10nDXd9wnEigmiuHIZw==
+  
+  axios@^0.21.4:
+    version "0.21.4"
+    resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+    integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+    dependencies:
+      follow-redirects "^1.14.0"
   
   balanced-match@^1.0.0:
     version "1.0.2"
@@ -446,13 +459,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
     integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
   
-  config@^3.3.6:
-    version "3.3.6"
-    resolved "https://registry.yarnpkg.com/config/-/config-3.3.6.tgz#b87799db7399cc34988f55379b5f43465b1b065c"
-    integrity sha512-Hj5916C5HFawjYJat1epbyY2PlAgLpBtDUlr0MxGLgo3p5+7kylyvnRY18PqJHgnNWXcdd0eWDemT7eYWuFgwg==
-    dependencies:
-      json5 "^2.1.1"
-  
   console-control-strings@^1.0.0, console-control-strings@~1.1.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
@@ -497,11 +503,6 @@ Lockfile:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
     integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
-  
-  dayjs@^1.10.6:
-    version "1.10.6"
-    resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.10.6.tgz#288b2aa82f2d8418a6c9d4df5898c0737ad02a63"
-    integrity sha512-AztC/IOW4L1Q41A86phW5Thhcrco3xuAA+YX/BLpLWWjRcTj5TOt/QImBLmCKlrF7u7k47arTnOyL6GnbG8Hvw==
   
   debug@2.6.9:
     version "2.6.9"
@@ -553,6 +554,11 @@ Lockfile:
     version "4.0.2"
     resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
     integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
+  
+  dotenv@^10.0.0:
+    version "10.0.0"
+    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
+    integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
   
   ecdsa-sig-formatter@1.0.11:
     version "1.0.11"
@@ -649,6 +655,11 @@ Lockfile:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/fn.name/-/fn.name-1.1.0.tgz#26cad8017967aea8731bc42961d04a3d5988accc"
     integrity sha512-GRnmB5gPyJpAhTQdSZTSp9uaPSvl09KoYcMQtsB9rQoOmzs9dH6ffeccH+Z+cv6P68Hu5bC6JjRh4Ah/mHSNRw==
+  
+  follow-redirects@^1.14.0:
+    version "1.14.3"
+    resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.3.tgz#6ada78118d8d24caee595595accdc0ac6abd022e"
+    integrity sha512-3MkHxknWMUtb23apkgz/83fDoe+y+qr0TdgacGIA7bew+QLBo3vdgEN2xEsuXNivpFy4CyDhBBZnNZOtalmenw==
   
   forwarded@0.2.0:
     version "0.2.0"
@@ -801,13 +812,6 @@ Lockfile:
       "@sideway/formula" "^3.0.0"
       "@sideway/pinpoint" "^2.0.0"
   
-  json5@^2.1.1:
-    version "2.2.0"
-    resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.0.tgz#2dfefe720c6ba525d9ebd909950f0515316c89a3"
-    integrity sha512-f+8cldu7X/y7RAJurMEJmdoKXGB/X550w2Nr3tTbezL6RwEE/iMcm+tZnXeoZtKuOq6ft8+CqzEkrIgx1fPoQA==
-    dependencies:
-      minimist "^1.2.5"
-  
   jsonwebtoken@^8.5.1:
     version "8.5.1"
     resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
@@ -886,11 +890,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lodash.once/-/lodash.once-4.1.1.tgz#0dd3971213c7c56df880977d504c88fb471a97ac"
     integrity sha1-DdOXEhPHxW34gJd9UEyI+0cal6w=
   
-  lodash@^4.17.21:
-    version "4.17.21"
-    resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
-    integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
-  
   logform@^2.2.0:
     version "2.2.0"
     resolved "https://registry.yarnpkg.com/logform/-/logform-2.2.0.tgz#40f036d19161fc76b68ab50fdc7fe495544492f2"
@@ -965,11 +964,6 @@ Lockfile:
     dependencies:
       brace-expansion "^1.1.7"
   
-  minimist@^1.2.5:
-    version "1.2.5"
-    resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-    integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
-  
   minipass@^3.0.0:
     version "3.1.3"
     resolved "https://registry.yarnpkg.com/minipass/-/minipass-3.1.3.tgz#7d42ff1f39635482e15f9cdb53184deebd5815fd"
@@ -1008,7 +1002,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
     integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
   
-  mongoose@*, mongoose@^5.13.2:
+  mongoose@^5.13.2:
     version "5.13.2"
     resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.13.2.tgz#1b9095fc6bbbb015ea3bc2a79d6f56025406c769"
     integrity sha512-sBUKJGpdwZCq9102Lj6ZOaLcW4z/T4TI9aGWrNX5ZlICwChKWG4Wo5qriLImdww3H7bETPW9vYtSiADNlA4wSQ==
@@ -1145,6 +1139,13 @@ Lockfile:
     version "0.1.7"
     resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
     integrity sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=
+  
+  prisma@^3.0.2:
+    version "3.0.2"
+    resolved "https://registry.yarnpkg.com/prisma/-/prisma-3.0.2.tgz#e86cb6abf4a815c7ac97b9d0ed383f01c253ce34"
+    integrity sha512-TyOCbtWGDVdWvsM1RhUzJXoGClXGalHhyYWIc5eizSF8T1ScGiOa34asBUdTnXOUBFSErbsqMNw40DHAteBm1A==
+    dependencies:
+      "@prisma/engines" "2.31.0-32.2452cc6313d52b8b9a96999ac0e974d0aedf88db"
   
   process-nextick-args@~2.0.0:
     version "2.0.1"
